@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Payel!</title>
+<link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="card" id="card">
+  <div class="cake-icon">🎂</div>
+  <h1>Happy  Birthday  Payel  ✨</h1>
+  <p>Wishing you a year filled with joy, laughter, and brilliant achievements</p>
+
+  <!-- 🎵 MP3 AUDIO FILE ADDED HERE -->
+  <audio id="birthdayAudio" loop>
+    <source src="song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Player UI -->
+  <div class="audio-player">
+    <div class="song-info">
+      🎵 <span id="songStatus">Play "Mere Haath Mein"</span>
+    </div>
+    <button class="play-btn" id="playBtn">▶</button>
+  </div>
+</div>
+
+<script>
+  // JavaScript to play/pause the mp3 file
+  const audio = document.getElementById('birthdayAudio');
+  const playBtn = document.getElementById('playBtn');
+  const songStatus = document.getElementById('songStatus');
+  const card = document.getElementById('card');
+  let heartInterval;
+
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    
+    const hearts = ['💖', '💕', '✨', '🌸', '❤️'];
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    
+    const cardRect = card.getBoundingClientRect();
+    const randomX = Math.random() * (cardRect.width - 40) + 20;
+    
+    heart.style.left = `${randomX}px`;
+    heart.style.top = `${cardRect.height - 30}px`;
+    
+    card.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 3000);
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      // Plays the mp3 audio
+      audio.play();
+      playBtn.textContent = '❚❚';
+      songStatus.textContent = 'Playing: Mere Haath Mein...';
+
+      heartInterval = setInterval(createHeart, 350);
+    } else {
+      // Pauses the mp3 audio
+      audio.pause();
+      playBtn.textContent = '▶';
+      songStatus.textContent = 'Play "Mere Haath Mein"';
+
+      clearInterval(heartInterval);
+    }
+  });
+</script>
+
+</body>
+</html>
